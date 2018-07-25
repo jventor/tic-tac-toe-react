@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 
-import Board from './Board';
-import ButtonsBar from './ButtonsBar';
+import Board from "./Board";
+import ButtonsBar from "./ButtonsBar";
 
-const Game = () => (
+const Game = ({ game, gamer, resetGame, handleClick }) => (
   <div className="game">
-    <Board/>
-    <ButtonsBar/>
+    <Board game={game} handleClick={handleClick}/>
+    <ButtonsBar resetGame={resetGame} />
   </div>
 );
 

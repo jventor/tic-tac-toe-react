@@ -8,11 +8,11 @@ const StyledButton = styled.button`
   background-color: ${props => COLORES[props.value]};
   border: 1px solid #000;
   border-radius: 4px;
-  margin: 1px;
+
 `;
 
-const Box = ({ value, handleClick }) => (
-  <StyledButton onClick={handleClick} value={value} />
+const Box = ({ value, handleClick, pos }) => (
+  <StyledButton onClick={() => handleClick(pos)} value={value} />
 );
 
 export default Box;

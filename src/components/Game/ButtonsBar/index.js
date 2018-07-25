@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const StyledBar = styled.div`
   justify-content: center;
@@ -16,10 +16,9 @@ const StyledButton = styled.button`
   margin-top: 15px;
 `;
 
-
-const ButtonsBar = () => (
+const ButtonsBar = ({ resetGame }) => (
   <StyledBar>
-    <StyledButton>Reset</StyledButton>
+    <StyledButton onClick={resetGame}>Reset</StyledButton>
   </StyledBar>
 );
 
