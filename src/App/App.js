@@ -1,9 +1,11 @@
-import React, { Component } from "react";
-import logo from "./logo.png";
-import Game from "../components/Game";
-import Template from "../layout/Template";
-import { injectGlobal } from "styled-components";
-import { normalize } from "polished";
+import React, { Component } from 'react';
+import logo from './logo.png';
+import Template from '../layout/Template';
+import { injectGlobal } from 'styled-components';
+import { normalize } from 'polished';
+import { PLAYER1, PLAYER2, BOX_EMPTY } from '../constants';
+import { BrowserRouter, Route } from 'react-router-dom';
+import { Home, HistoryGames } from '../scenes';
 
 injectGlobal`
   ${normalize()};
@@ -14,32 +16,40 @@ injectGlobal`
 const INITIAL_STATE = {
   game: [0, 0, 0, 0, 0, 0, 0, 0, 0],
   gamer: 1,
-  boxes: 0,
+  finished: false,
+  games: [],
 };
 class App extends Component {
-
   state = INITIAL_STATE;
 
   resetGame = () => {
-    console.log("Reseteado");
     this.setState({
       game: [0, 0, 0, 0, 0, 0, 0, 0, 0],
       gamer: 1,
-      boxes: 0,
+      finished: false,
     });
-
   };
 
   handleClick = i => {
-    const { game } = this.state;
-    if (game[i] === 0 && !this.checkWinner()) {
-      console.log("Hola", i);
+    const { game, finished } = this.state;
+    if (game[i] === BOX_EMPTY && !finished) {
       this.setState(prevState => {
         let newGame = prevState.game;
         newGame[i] = prevState.gamer;
 
-        let newGamer = prevState.gamer === 1 ? 2 : 1;
-        return { game: newGame, gamer: newGamer, boxes: prevState.boxes + 1 };
+        let newFinished = false;
+        let newGames = prevState.games;
+        if (
+          newGame.filter(box => box > 0).length > 8 ||
+          this.checkWinner() > 0
+        ) {
+          newFinished = true;
+          newGames.push(newGame);
+        }
+
+        let newGamer = prevState.gamer === PLAYER1 ? PLAYER2 : PLAYER1;
+
+        return { game: newGame, gamer: newGamer, finished: newFinished };
       });
     }
   };
@@ -76,25 +86,48 @@ class App extends Component {
   }
 
   render() {
-    const { game, gamer } = this.state;
+    const { game, gamer, finished, games } = this.state;
     const winner = this.checkWinner();
-    if (winner) {
-      console.log("Ganador", winner);
+    let message = '';
+
+    if (finished) {
+      if (winner) {
+        message = 'Winner Player ' + winner;
+      } else {
+        message = 'No winner, reset to start a new game';
+      }
+    } else {
+      message = 'Player ' + gamer + ' turn';
     }
+
     return (
-      <Template
-        title="Tic Tac Toe"
-        logo={logo}
-        author="Jaime Ventor"
-        year="2018"
-      >
-        <Game
-          game={game}
-          gamer={gamer}
-          resetGame={this.resetGame}
-          handleClick={this.handleClick}
-        />
-      </Template>
+      <BrowserRouter>
+        <Template
+          title="Tic Tac Toe"
+          logo={logo}
+          author="Jaime Ventor"
+          year="2018"
+        >
+          <Route
+            path="/"
+            exact
+            component={() => (
+              <Home
+                game={game}
+                gamer={gamer}
+                finished={finished}
+                message={message}
+                resetGame={this.resetGame}
+                handleClick={this.handleClick}
+              />
+            )}
+          />
+          <Route
+            path="/history"
+            component={() => <HistoryGames games={games} />}
+          />
+        </Template>
+      </BrowserRouter>
     );
   }
 }

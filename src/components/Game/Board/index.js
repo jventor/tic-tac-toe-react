@@ -1,49 +1,106 @@
-import React from "react";
-import styled from "styled-components";
-import { Row, Column } from "rebass";
+import React from 'react';
+import styled from 'styled-components';
+import { Row, Column } from 'rebass';
+import PropTypes from 'prop-types';
 
-import Box from "../Box";
+import Box from '../Box';
 
 const StyledBoard = styled.div`
   margin: 0px;
 `;
 
-const Board = ({ game, handleClick }) => (
+const Board = ({ game, handleClick, boxSize }) => (
   <StyledBoard>
-    <Row space={0}>
-      <Column>
-        <Box handleClick={handleClick} value={game[0]} pos={0} />
+    <Row mx={0}>
+      <Column px={1} py={1} mb={0}>
+        <Box
+          handleClick={handleClick}
+          value={game[0]}
+          position={0}
+          boxSize={boxSize}
+        />
       </Column>
-      <Column>
-        <Box handleClick={handleClick} value={game[1]} pos={1} />
+      <Column px={1} py={1} mb={0}>
+        <Box
+          handleClick={handleClick}
+          value={game[1]}
+          position={1}
+          boxSize={boxSize}
+        />
       </Column>
-      <Column>
-        <Box handleClick={handleClick} value={game[2]} pos={2} />
+      <Column px={1} py={1} mb={0}>
+        <Box
+          handleClick={handleClick}
+          value={game[2]}
+          position={2}
+          boxSize={boxSize}
+        />
       </Column>
     </Row>
-    <Row>
-      <Column>
-        <Box handleClick={handleClick} value={game[3]} pos={3} />
+    <Row mx={0}>
+      <Column px={1} py={1} mb={0}>
+        <Box
+          handleClick={handleClick}
+          value={game[3]}
+          position={3}
+          boxSize={boxSize}
+        />
       </Column>
-      <Column>
-        <Box handleClick={handleClick} value={game[4]} pos={4} />
+      <Column px={1} py={1} mb={0}>
+        <Box
+          handleClick={handleClick}
+          value={game[4]}
+          position={4}
+          boxSize={boxSize}
+        />
       </Column>
-      <Column>
-        <Box handleClick={handleClick} value={game[5]} pos={5} />
+      <Column px={1} py={1} mb={0}>
+        <Box
+          handleClick={handleClick}
+          value={game[5]}
+          position={5}
+          boxSize={boxSize}
+        />
       </Column>
     </Row>
-    <Row>
-      <Column>
-        <Box handleClick={handleClick} value={game[6]} pos={6} />
+    <Row mx={0}>
+      <Column px={1} py={1} mb={0}>
+        <Box
+          handleClick={handleClick}
+          value={game[6]}
+          position={6}
+          boxSize={boxSize}
+        />
       </Column>
-      <Column>
-        <Box handleClick={handleClick} value={game[7]} pos={7} />
+      <Column px={1} py={1} mb={0}>
+        <Box
+          handleClick={handleClick}
+          value={game[7]}
+          position={7}
+          boxSize={boxSize}
+        />
       </Column>
-      <Column>
-        <Box handleClick={handleClick} value={game[8]} pos={8} />
+      <Column px={1} py={1} mb={0}>
+        <Box
+          handleClick={handleClick}
+          value={game[8]}
+          position={8}
+          boxSize={boxSize}
+        />
       </Column>
     </Row>
   </StyledBoard>
 );
+
+Board.defaultProps = {
+  boxSize: 80,
+  handleClick: null,
+};
+
+Board.propTypes = {
+  game: PropTypes.array.isRequired,
+  handleClick: PropTypes.func,
+  boxSize: PropTypes.number,
+};
 
 export default Board;

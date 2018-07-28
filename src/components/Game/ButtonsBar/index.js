@@ -18,7 +18,7 @@ const StyledButton = styled.button`
 
 const ButtonsBar = ({ resetGame }) => (
   <StyledBar>
-    <StyledButton onClick={resetGame}>Reset</StyledButton>
+    <StyledButton onClick={resetGame} >Reset</StyledButton>
   </StyledBar>
 );
 
