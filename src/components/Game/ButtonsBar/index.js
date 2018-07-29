@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import PropTypes from 'prop-types';
 
 const StyledBar = styled.div`
   justify-content: center;
@@ -21,5 +22,10 @@ const ButtonsBar = ({ resetGame }) => (
     <StyledButton onClick={resetGame} >Reset</StyledButton>
   </StyledBar>
 );
+
+ButtonsBar.propTypes = {
+  resetGame: PropTypes.func.isRequired
+};
+
 
 export default ButtonsBar;

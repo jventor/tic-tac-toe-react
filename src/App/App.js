@@ -46,7 +46,6 @@ class App extends Component {
           newFinished = true;
           newGames.push(newGame);
         }
-
         let newGamer = prevState.gamer === PLAYER1 ? PLAYER2 : PLAYER1;
 
         return { game: newGame, gamer: newGamer, finished: newFinished };
@@ -114,7 +113,6 @@ class App extends Component {
             component={() => (
               <Home
                 game={game}
-                gamer={gamer}
                 finished={finished}
                 message={message}
                 resetGame={this.resetGame}
