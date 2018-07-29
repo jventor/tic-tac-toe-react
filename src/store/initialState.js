@@ -3,7 +3,7 @@ const initialState = {
   gamer: 1,
   finished: false,
   games: [],
-  message: '',
+  message: 'Player 1 turn'
 };
 
 export default initialState;

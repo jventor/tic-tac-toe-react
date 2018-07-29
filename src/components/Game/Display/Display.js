@@ -15,8 +15,12 @@ const StyledDisplay = styled.div`
 
 const Display = ({ message }) => <StyledDisplay>{message}</StyledDisplay>;
 
+Display.defaultProps = {
+  message: ''
+}
+
 Display.propTypes = {
-  message: PropTypes.string.isRequired,
+  message: PropTypes.string
 };
 
 export default Display;

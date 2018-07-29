@@ -6,7 +6,6 @@ import { normalize } from 'polished';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { Home, HistoryGames } from '../scenes';
 import { connect } from 'react-redux';
-import { checkWinner } from '../utils';
 import { changeMessageDisplay } from '../store';
 
 injectGlobal`
@@ -15,15 +14,10 @@ injectGlobal`
   body { margin: 0; }
 `;
 class App extends Component {
+
+
+
   render() {
-    const { game, gamer, finished, changeMessageDisplay } = this.props;
-
-    if (finished) {
-      const winner = checkWinner(game);
-      if (winner) changeMessageDisplay('Winner Player ' + winner);
-      else changeMessageDisplay('No winner, reset to start a new game');
-    } else changeMessageDisplay('Player ' + gamer + ' turn');
-
     return (
       <BrowserRouter>
         <Template

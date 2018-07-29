@@ -11,17 +11,17 @@ const mapDispatchToProps = {
 const mapStateToProps = state => ({
   game: state.game,
   finished: state.finished,
-  message: state.message,
+
 });
 
 class HomeContainer extends Component {
   render() {
-    const { game, finished, message, resetGame, handleClick } = this.props;
+    const { game, finished, resetGame, handleClick } = this.props;
     return (
       <Home
         game={game}
         finished={finished}
-        message={message}
+
         resetGame={resetGame}
         handleClick={handleClick}
       />

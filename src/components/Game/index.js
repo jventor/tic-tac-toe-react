@@ -13,9 +13,9 @@ const StyledGame = styled.div`
   flex-direction: column;
 `;
 
-const Game = ({ game, finished, message, resetGame, handleClick }) => (
+const Game = ({ game, finished,resetGame, handleClick }) => (
   <StyledGame>
-    <Display message={message} />
+    <Display />
     <Board game={game} handleClick={handleClick} boxSize={GAME_BOARD_SIZE} />
     {finished && <ButtonsBar resetGame={resetGame} />}
   </StyledGame>
@@ -24,7 +24,6 @@ const Game = ({ game, finished, message, resetGame, handleClick }) => (
 Game.propTypes = {
   game: PropTypes.array.isRequired,
   finished: PropTypes.bool.isRequired,
-  message: PropTypes.string.isRequired,
   resetGame: PropTypes.func.isRequired,
   handleClick: PropTypes.func.isRequired,
 };

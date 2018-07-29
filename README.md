@@ -1,4 +1,4 @@
-# Tic Tac Toe with React
+# Tic Tac Toe with React & Redux
 
 
 
@@ -26,3 +26,4 @@ Test:
 - [Enzyme](https://github.com/airbnb/enzyme)
 - [Using Jest with enzyme](https://github.com/airbnb/enzyme/blob/master/docs/guides/jest.md)
 - [Jest](https://jestjs.io/docs/en/configuration)
+
