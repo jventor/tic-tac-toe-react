@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 const StyledBar = styled.div`
@@ -19,13 +19,12 @@ const StyledButton = styled.button`
 
 const ButtonsBar = ({ resetGame }) => (
   <StyledBar>
-    <StyledButton onClick={resetGame} >Reset</StyledButton>
+    <StyledButton onClick={resetGame}>Reset</StyledButton>
   </StyledBar>
 );
 
 ButtonsBar.propTypes = {
-  resetGame: PropTypes.func.isRequired
+  resetGame: PropTypes.func.isRequired,
 };
-
 
 export default ButtonsBar;

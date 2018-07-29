@@ -3,101 +3,26 @@ import logo from './logo.png';
 import Template from '../layout/Template';
 import { injectGlobal } from 'styled-components';
 import { normalize } from 'polished';
-import { PLAYER1, PLAYER2, BOX_EMPTY } from '../constants';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { Home, HistoryGames } from '../scenes';
+import { connect } from 'react-redux';
+import { checkWinner } from '../utils';
+import { changeMessageDisplay } from '../store';
 
 injectGlobal`
   ${normalize()};
   * { box-sizing: border-box; }
   body { margin: 0; }
 `;
-
-const INITIAL_STATE = {
-  game: [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  gamer: 1,
-  finished: false,
-  games: [],
-};
 class App extends Component {
-  state = INITIAL_STATE;
-
-  resetGame = () => {
-    this.setState({
-      game: [0, 0, 0, 0, 0, 0, 0, 0, 0],
-      gamer: 1,
-      finished: false,
-    });
-  };
-
-  handleClick = i => {
-    const { game, finished } = this.state;
-    if (game[i] === BOX_EMPTY && !finished) {
-      this.setState(prevState => {
-        let newGame = prevState.game;
-        newGame[i] = prevState.gamer;
-
-        let newFinished = false;
-        let newGames = prevState.games;
-        if (
-          newGame.filter(box => box > 0).length > 8 ||
-          this.checkWinner() > 0
-        ) {
-          newFinished = true;
-          newGames.push(newGame);
-        }
-        let newGamer = prevState.gamer === PLAYER1 ? PLAYER2 : PLAYER1;
-
-        return { game: newGame, gamer: newGamer, finished: newFinished };
-      });
-    }
-  };
-
-  checkWinner() {
-    const { game } = this.state;
-    if (game[0] === game[1] && game[1] === game[2]) {
-      return game[0];
-    }
-    if (game[3] === game[4] && game[4] === game[5]) {
-      return game[3];
-    }
-    if (game[6] === game[7] && game[7] === game[8]) {
-      return game[6];
-    }
-
-    if (game[0] === game[3] && game[3] === game[6]) {
-      return game[0];
-    }
-    if (game[1] === game[4] && game[4] === game[7]) {
-      return game[1];
-    }
-    if (game[2] === game[5] && game[5] === game[8]) {
-      return game[2];
-    }
-
-    if (game[0] === game[4] && game[4] === game[8]) {
-      return game[0];
-    }
-    if (game[2] === game[4] && game[4] === game[6]) {
-      return game[2];
-    }
-    return null;
-  }
-
   render() {
-    const { game, gamer, finished, games } = this.state;
-    const winner = this.checkWinner();
-    let message = '';
+    const { game, gamer, finished, changeMessageDisplay } = this.props;
 
     if (finished) {
-      if (winner) {
-        message = 'Winner Player ' + winner;
-      } else {
-        message = 'No winner, reset to start a new game';
-      }
-    } else {
-      message = 'Player ' + gamer + ' turn';
-    }
+      const winner = checkWinner(game);
+      if (winner) changeMessageDisplay('Winner Player ' + winner);
+      else changeMessageDisplay('No winner, reset to start a new game');
+    } else changeMessageDisplay('Player ' + gamer + ' turn');
 
     return (
       <BrowserRouter>
@@ -107,27 +32,25 @@ class App extends Component {
           author="Jaime Ventor"
           year="2018"
         >
-          <Route
-            path="/"
-            exact
-            component={() => (
-              <Home
-                game={game}
-                finished={finished}
-                message={message}
-                resetGame={this.resetGame}
-                handleClick={this.handleClick}
-              />
-            )}
-          />
-          <Route
-            path="/history"
-            component={() => <HistoryGames games={games} />}
-          />
+          <Route path="/" exact component={Home} />
+          <Route path="/history" component={HistoryGames} />
         </Template>
       </BrowserRouter>
     );
   }
 }
 
-export default App;
+const mapDispatchToProps = {
+  changeMessageDisplay: changeMessageDisplay,
+};
+
+const mapStateToProps = state => ({
+  game: state.game,
+  gamer: state.gamer,
+  finished: state.finished,
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(App);

@@ -14,18 +14,24 @@ const StyledButton = styled.button`
 
 const Box = ({ boxSize, value, handleClick, position }) => {
   if (handleClick)
-    return (<StyledButton onClick={() => handleClick(position)} value={value} boxSize={boxSize} />)
-  else return (<StyledButton value={value} boxSize={boxSize} disabled="true" />);
+    return (
+      <StyledButton
+        onClick={() => handleClick(position)}
+        value={value}
+        boxSize={boxSize}
+      />
+    );
+  else return <StyledButton value={value} boxSize={boxSize} disabled="true" />;
 };
 
 Box.defaultProps = {
-  handleClick: null
-}
+  handleClick: null,
+};
 Box.propTypes = {
   boxSize: PropTypes.number.isRequired,
   value: PropTypes.number.isRequired,
   position: PropTypes.number.isRequired,
-  handleClick: PropTypes.func
+  handleClick: PropTypes.func,
 };
 
 export default Box;

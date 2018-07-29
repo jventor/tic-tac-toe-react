@@ -1,10 +1,10 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import Header from "../Header";
-import Body from "../Body";
-import Footer from "../Footer";
+import Header from '../Header';
+import Body from '../Body';
+import Footer from '../Footer';
 
 const StyledWrapper = styled.div`
   display: flex;

@@ -10,11 +10,7 @@ const StyledBody = styled.div`
   height: 100vh;
 `;
 
-const Body = ({ children }) => (
-  <StyledBody>
-    {children}
-  </StyledBody>
-);
+const Body = ({ children }) => <StyledBody>{children}</StyledBody>;
 
 Body.propTypes = {
   children: PropTypes.node.isRequired,

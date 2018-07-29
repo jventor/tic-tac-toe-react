@@ -16,12 +16,14 @@ const StyledFooter = styled.footer`
 `;
 
 const Footer = ({ author, year }) => (
-  <StyledFooter>{author} - {year}</StyledFooter>
+  <StyledFooter>
+    {author} - {year}
+  </StyledFooter>
 );
 
 Footer.propTypes = {
   author: PropTypes.string.isRequired,
-  year: PropTypes.string.isRequired
+  year: PropTypes.string.isRequired,
 };
 
 export default Footer;
