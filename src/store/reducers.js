@@ -3,16 +3,16 @@ import { BOARD_RESET, BOARD_CLICK, CHANGE_DISPLAY_MESSAGE } from './actions';
 import { PLAYER1, PLAYER2, BOX_EMPTY } from '../constants';
 import { checkWinner } from '../utils';
 
-const tictactoeReducer = (state = initialState, { type, payload }) => {
+const tictactoeReducer = (state = { ...initialState }, { type, payload }) => {
+  const { game, games, gamer, finished, message } = { ...state };
   switch (type) {
     case BOARD_CLICK:
       const i = payload;
-      const { game, games, gamer, finished, message } = state;
       if (game[i] === BOX_EMPTY && !finished) {
-        let newGame = game;
+        let newGame = [...game];
         newGame[i] = gamer;
         let newFinished = false;
-        let newGames = games;
+        let newGames = [...games];
         const winner = checkWinner(newGame);
         if (newGame.filter(box => box > 0).length > 8 || winner > 0) {
           newFinished = true;
@@ -38,13 +38,7 @@ const tictactoeReducer = (state = initialState, { type, payload }) => {
       }
 
     case BOARD_RESET:
-      return {
-        ...state,
-        game: [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        gamer: 1,
-        finished: false,
-        message: 'Player 1 turn',
-      };
+      return { ...initialState, games };
 
     case CHANGE_DISPLAY_MESSAGE:
       return { ...state, message: payload };
